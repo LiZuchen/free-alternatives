@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>免费替代方案 - 拒绝花冤枉钱</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        /* Header */
+        header {
+            background: rgba(0,0,0,0.2);
+            padding: 60px 20px;
+            text-align: center;
+            color: white;
+        }
+        header h1 {
+            font-size: 48px;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        header p {
+            font-size: 20px;
+            opacity: 0.95;
+            margin-bottom: 25px;
+        }
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        .stat-item {
+            background: rgba(255,255,255,0.2);
+            padding: 15px 30px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+        .stat-number {
+            font-size: 32px;
+            font-weight: bold;
+        }
+        .stat-label {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        /* Search */
+        .search-section {
+            background: white;
+            padding: 30px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        .search-box {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+        }
+        .search-box input {
+            width: 100%;
+            padding: 15px 50px 15px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 25px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        .search-box input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        .search-icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 20px;
+            color: #999;
+        }
+        
+        /* Category Tabs */
+        .category-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 20px auto 0;
+            padding: 0 20px;
+        }
+        .category-tab {
+            padding: 10px 20px;
+            background: #f0f0f0;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .category-tab:hover {
+            background: #e0e0e0;
+        }
+        .category-tab.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        /* Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        /* Software Cards */
+        .software-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+        }
+        .software-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .software-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+        }
+        .card-header {
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-bottom: 3px solid #667eea;
+        }
+        .software-names {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .paid-name {
+            font-size: 20px;
+            font-weight: bold;
+            color: #e74c3c;
+        }
+        .vs {
+            color: #999;
+            font-weight: bold;
+        }
+        .free-name {
+            font-size: 20px;
+            font-weight: bold;
+            color: #27ae60;
+        }
+        .price-tag {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        .price-paid {
+            background: #ffeaea;
+            color: #e74c3c;
+        }
+        .price-free {
+            background: #eaffea;
+            color: #27ae60;
+        }
+        .card-body {
+            padding: 20px;
+        }
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 15px;
+        }
+        .comparison-table td {
+            padding: 8px 0;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 14px;
+        }
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+        .feature-name {
+            color: #666;
+        }
+        .check { color: #27ae60; }
+        .cross { color: #e74c3c; }
+        .savings {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        .savings-amount {
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .links {
+            display: flex;
+            gap: 10px;
+        }
+        .btn {
+            flex: 1;
+            padding: 12px;
+            text-align: center;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.2s;
+            display: inline-block;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #333;
+        }
+        
+        /* Footer */
+        footer {
+            background: rgba(0,0,0,0.2);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 60px;
+        }
+        footer a {
+            color: white;
+            text-decoration: underline;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            header h1 { font-size: 32px; }
+            .software-grid { grid-template-columns: 1fr; }
+            .stats { gap: 15px; }
+            .stat-item { padding: 10px 20px; }
+        }
+        
+        /* Hidden */
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>💰 免费替代方案</h1>
+        <p>拒绝花冤枉钱！每个收费软件都有免费开源的替代方案</p>
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-number">50+</div>
+                <div class="stat-label">软件对比</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">10+</div>
+                <div class="stat-label">类别</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">¥5000+</div>
+                <div class="stat-label">每年节省</div>
+            </div>
+        </div>
+    </header>
+    
+    <div class="search-section">
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="搜索软件名称... 例如：Photoshop, Office, AI">
+            <span class="search-icon">🔍</span>
+        </div>
+        <div class="category-tabs" id="categoryTabs">
+            <button class="category-tab active" data-category="all">全部</button>
+            <button class="category-tab" data-category="design">🎨 设计</button>
+            <button class="category-tab" data-category="office">📝 办公</button>
+            <button class="category-tab" data-category="dev">💻 开发</button>
+            <button class="category-tab" data-category="media">🎬 多媒体</button>
+            <button class="category-tab" data-category="security">🔒 安全</button>
+            <button class="category-tab" data-category="ai">🤖 AI 工具</button>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="software-grid" id="softwareGrid">
+            <!-- Cards will be inserted by JavaScript -->
+        </div>
+    </div>
+    
+    <footer>
+        <p>❤️ Made with love | 拒绝智商税</p>
+        <p>📦 <a href="https://github.com/LiZuchen/free-alternatives" target="_blank">GitHub 仓库</a> | 📄 MIT License</p>
+        <p style="margin-top: 15px; font-size: 14px; opacity: 0.8;">
+            欢迎贡献！提交你知道的免费替代方案
+        </p>
+    </footer>
+
+    <script>
+        const softwareData = [
+            {
+                category: "design",
+                paid: "Photoshop",
+                free: "GIMP / Krita",
+                paidPrice: "¥20.99/月",
+                freePrice: "免费",
+                savings: 252,
+                features: [
+                    { name: "图层支持", paid: true, free: true },
+                    { name: "滤镜效果", paid: true, free: true },
+                    { name: "笔刷系统", paid: true, free: true },
+                    { name: "跨平台", paid: false, free: true }
+                ],
+                download: "https://www.gimp.org/",
+                github: ""
+            },
+            {
+                category: "design",
+                paid: "Illustrator",
+                free: "Inkscape",
+                paidPrice: "¥20.99/月",
+                freePrice: "免费",
+                savings: 252,
+                features: [
+                    { name: "矢量绘图", paid: true, free: true },
+                    { name: "SVG 支持", paid: true, free: true },
+                    { name: "字体工具", paid: true, free: true },
+                    { name: "开源", paid: false, free: true }
+                ],
+                download: "https://inkscape.org/",
+                github: ""
+            },
+            {
+                category: "design",
+                paid: "Figma",
+                free: "Penpot",
+                paidPrice: "¥108/月",
+                freePrice: "免费",
+                savings: 1296,
+                features: [
+                    { name: "实时协作", paid: true, free: true },
+                    { name: "矢量设计", paid: true, free: true },
+                    { name: "原型设计", paid: true, free: true },
+                    { name: "开源", paid: false, free: true }
+                ],
+                download: "https://penpot.app/",
+                github: ""
+            },
+            {
+                category: "office",
+                paid: "Microsoft Office",
+                free: "LibreOffice",
+                paidPrice: "¥398/年",
+                freePrice: "免费",
+                savings: 398,
+                features: [
+                    { name: "文字处理", paid: true, free: true },
+                    { name: "电子表格", paid: true, free: true },
+                    { name: "演示文稿", paid: true, free: true },
+                    { name: "跨平台", paid: false, free: true }
+                ],
+                download: "https://zh-cn.libreoffice.org/",
+                github: ""
+            },
+            {
+                category: "office",
+                paid: "Notion",
+                free: "Obsidian",
+                paidPrice: "¥68/月",
+                freePrice: "免费",
+                savings: 816,
+                features: [
+                    { name: "笔记管理", paid: true, free: true },
+                    { name: "双向链接", paid: true, free: true },
+                    { name: "离线使用", paid: false, free: true },
+                    { name: "数据本地", paid: false, free: true }
+                ],
+                download: "https://obsidian.md/",
+                github: ""
+            },
+            {
+                category: "office",
+                paid: "Evernote",
+                free: "Joplin",
+                paidPrice: "¥58/月",
+                freePrice: "免费",
+                savings: 696,
+                features: [
+                    { name: "笔记同步", paid: true, free: true },
+                    { name: "端到端加密", paid: false, free: true },
+                    { name: "剪藏功能", paid: true, free: true },
+                    { name: "开源", paid: false, free: true }
+                ],
+                download: "https://joplinapp.org/",
+                github: ""
+            },
+            {
+                category: "dev",
+                paid: "JetBrains IDEs",
+                free: "VS Code",
+                paidPrice: "¥199/月",
+                freePrice: "免费",
+                savings: 2388,
+                features: [
+                    { name: "代码编辑", paid: true, free: true },
+                    { name: "智能提示", paid: true, free: true },
+                    { name: "调试工具", paid: true, free: true },
+                    { name: "插件生态", paid: true, free: true }
+                ],
+                download: "https://code.visualstudio.com/",
+                github: ""
+            },
+            {
+                category: "dev",
+                paid: "GitHub Copilot",
+                free: "Codeium",
+                paidPrice: "¥88/月",
+                freePrice: "免费",
+                savings: 1056,
+                features: [
+                    { name: "代码补全", paid: true, free: true },
+                    { name: "AI 聊天", paid: true, free: true },
+                    { name: "多语言支持", paid: true, free: true },
+                    { name: "IDE 集成", paid: true, free: true }
+                ],
+                download: "https://codeium.com/",
+                github: ""
+            },
+            {
+                category: "dev",
+                paid: "Postman",
+                free: "Insomnia",
+                paidPrice: "¥240/年",
+                freePrice: "免费",
+                savings: 240,
+                features: [
+                    { name: "API 测试", paid: true, free: true },
+                    { name: "离线使用", paid: false, free: true },
+                    { name: "轻量级", paid: false, free: true },
+                    { name: "团队协作", paid: true, free: true }
+                ],
+                download: "https://insomnia.rest/",
+                github: ""
+            },
+            {
+                category: "media",
+                paid: "Premiere Pro",
+                free: "DaVinci Resolve",
+                paidPrice: "¥20.99/月",
+                freePrice: "免费",
+                savings: 252,
+                features: [
+                    { name: "视频剪辑", paid: true, free: true },
+                    { name: "调色功能", paid: true, free: true },
+                    { name: "音频处理", paid: true, free: true },
+                    { name: "特效合成", paid: true, free: true }
+                ],
+                download: "https://www.blackmagicdesign.com/products/davinciresolve",
+                github: ""
+            },
+            {
+                category: "media",
+                paid: "After Effects",
+                free: "Blender",
+                paidPrice: "¥20.99/月",
+                freePrice: "免费",
+                savings: 252,
+                features: [
+                    { name: "特效合成", paid: true, free: true },
+                    { name: "3D 功能", paid: false, free: true },
+                    { name: "动画制作", paid: true, free: true },
+                    { name: "开源", paid: false, free: true }
+                ],
+                download: "https://www.blender.org/",
+                github: ""
+            },
+            {
+                category: "media",
+                paid: "Audition",
+                free: "Audacity",
+                paidPrice: "¥20.99/月",
+                freePrice: "免费",
+                savings: 252,
+                features: [
+                    { name: "音频编辑", paid: true, free: true },
+                    { name: "多轨混音", paid: true, free: true },
+                    { name: "效果器", paid: true, free: true },
+                    { name: "开源", paid: false, free: true }
+                ],
+                download: "https://www.audacityteam.org/",
+                github: ""
+            },
+            {
+                category: "security",
+                paid: "1Password",
+                free: "Bitwarden",
+                paidPrice: "¥36/月",
+                freePrice: "免费",
+                savings: 432,
+                features: [
+                    { name: "密码存储", paid: true, free: true },
+                    { name: "多设备同步", paid: true, free: true },
+                    { name: "端到端加密", paid: true, free: true },
+                    { name: "开源", paid: false, free: true }
+                ],
+                download: "https://bitwarden.com/",
+                github: ""
+            },
+            {
+                category: "ai",
+                paid: "ChatGPT Plus",
+                free: "Claude / 文心一言",
+                paidPrice: "$20/月",
+                freePrice: "免费",
+                savings: 1440,
+                features: [
+                    { name: "AI 对话", paid: true, free: true },
+                    { name: "代码生成", paid: true, free: true },
+                    { name: "文本创作", paid: true, free: true },
+                    { name: "中文优化", paid: false, free: true }
+                ],
+                download: "https://claude.ai/",
+                github: ""
+            },
+            {
+                category: "ai",
+                paid: "Midjourney",
+                free: "Stable Diffusion",
+                paidPrice: "$10/月",
+                freePrice: "免费",
+                savings: 720,
+                features: [
+                    { name: "AI 绘画", paid: true, free: true },
+                    { name: "图像生成", paid: true, free: true },
+                    { name: "本地部署", paid: false, free: true },
+                    { name: "开源", paid: false, free: true }
+                ],
+                download: "https://stability.ai/",
+                github: ""
+            }
+        ];
+
+        const softwareGrid = document.getElementById('softwareGrid');
+        const searchInput = document.getElementById('searchInput');
+        const categoryTabs = document.querySelectorAll('.category-tab');
+
+        function renderCards(data) {
+            softwareGrid.innerHTML = data.map(item => `
+                <div class="software-card" data-category="${item.category}">
+                    <div class="card-header">
+                        <div class="software-names">
+                            <span class="paid-name">${item.paid}</span>
+                            <span class="vs">→</span>
+                            <span class="free-name">${item.free}</span>
+                        </div>
+                        <div>
+                            <span class="price-tag price-paid">${item.paidPrice}</span>
+                            <span class="price-tag price-free" style="margin-left: 8px;">${item.freePrice}</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="savings">
+                            <div>每年节省</div>
+                            <div class="savings-amount">¥${item.savings}</div>
+                        </div>
+                        <table class="comparison-table">
+                            ${item.features.map(f => `
+                                <tr>
+                                    <td class="feature-name">${f.name}</td>
+                                    <td>${f.paid ? '<span class="check">✓</span>' : '<span class="cross">✗</span>'}</td>
+                                    <td>${f.free ? '<span class="check">✓</span>' : '<span class="cross">✗</span>'}</td>
+                                </tr>
+                            `).join('')}
+                        </table>
+                        <div class="links">
+                            <a href="${item.download}" target="_blank" class="btn btn-primary">🌐 官网下载</a>
+                            <a href="https://github.com/LiZuchen/free-alternatives" target="_blank" class="btn btn-secondary">⭐ GitHub</a>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Initial render
+        renderCards(softwareData);
+
+        // Search functionality
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            const filtered = softwareData.filter(item => 
+                item.paid.toLowerCase().includes(query) ||
+                item.free.toLowerCase().includes(query) ||
+                item.category.toLowerCase().includes(query)
+            );
+            renderCards(filtered);
+        });
+
+        // Category filter
+        categoryTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                categoryTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                const category = tab.dataset.category;
+                if (category === 'all') {
+                    renderCards(softwareData);
+                } else {
+                    const filtered = softwareData.filter(item => item.category === category);
+                    renderCards(filtered);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
