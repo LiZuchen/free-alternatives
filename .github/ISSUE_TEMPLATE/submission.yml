@@ -1,0 +1,54 @@
+name: 提交替代方案
+description: 提交新的免费替代方案
+title: "[新增] 软件名称 → 替代方案"
+labels: ["enhancement", "submission"]
+body:
+  - type: input
+    id: paid-software
+    attributes:
+      label: 收费软件名称
+      description: 请提供收费软件的名称
+      placeholder: 例如：Photoshop
+    validations:
+      required: true
+  - type: input
+    id: free-alternative
+    attributes:
+      label: 免费替代方案
+      description: 请提供免费的替代方案
+      placeholder: 例如：GIMP
+    validations:
+      required: true
+  - type: textarea
+    id: comparison
+    attributes:
+      label: 功能对比
+      description: 请简要对比两者的功能和特点
+      placeholder: 描述主要功能差异、优缺点等
+    validations:
+      required: true
+  - type: input
+    id: website
+    attributes:
+      label: 官方网站
+      description: 替代方案的官方网站链接
+      placeholder: https://...
+    validations:
+      required: true
+  - type: dropdown
+    id: category
+    attributes:
+      label: 软件类别
+      options:
+        - 🎨 设计类
+        - 📝 办公类
+        - 💻 开发类
+        - 🎬 多媒体类
+        - 🔒 安全类
+        - 📊 数据类
+        - 🎮 生活娱乐
+        - ☁️ 云服务类
+        - 📱 移动应用
+        - 🤖 AI 工具
+    validations:
+      required: true
